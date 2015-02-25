@@ -1,4 +1,4 @@
-### https://raw.github.com/github/gitignore/6d91b087d2540f2ac197cdaa435c0f61f37ae16d/node.gitignore
+### https://raw.github.com/github/gitignore/298588469ac0cb08a00eebf7b00efb5ab726daca/node.gitignore
 
 # Logs
 logs
@@ -18,9 +18,6 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
-# node-waf configuration
-.lock-wscript
-
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
@@ -28,5 +25,8 @@ build/Release
 # Commenting this out is preferred by some people, see
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
 node_modules
+
+# Users Environment Variables
+.lock-wscript
 
 
