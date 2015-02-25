@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+
+var repl = require("repl");
+
+var program = require('commander');
+
+var nri = require("../");
+
+var replOpt = {
+  prompt: "$ ",
+  input: process.stdin,
+  output: process.stdout,
+  useGlobal: true
+};
+
+program
+  .version("0.1.0")
+  .option("-t, --topLevelVars", "Include top level variables.")
+  .option("-n, --noModuleExports", "Exclude values in `module.exports`")
+  .parse(process.argv);
+
+var settings = {
+  topLevelVars: program.topLevelVars,
+  noModuleExports: program.noModuleExports,
+  files: program.args
+}
+
+nri(settings);
+
+repl.start(replOpt);
