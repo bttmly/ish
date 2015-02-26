@@ -1,4 +1,4 @@
-# nri
+# nri [![Build Status](https://travis-ci.org/nickb1080/nri.svg)](https://travis-ci.org/nickb1080/nri)
 _node repl injector_
 
 Choose some files, run them, and inject their `module.exports` properties into the global scope of a new REPL. Optionally, you can also (or instead) inject the module's top-level variables.
