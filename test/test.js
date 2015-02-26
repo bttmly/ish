@@ -5,7 +5,7 @@ var nri = require("../");
 var originalGlobals = Object.keys(global).reduce(function (dict, key) {
   dict[key] = true;
   return dict;
-}, {});
+}, Object.create(null));
 
 describe("nri", function () {
 
@@ -18,14 +18,12 @@ describe("nri", function () {
   });
 
   describe("defaults", function () {
-
     it("adds all properties of `module.exports` into the global scope", function () {
       nri({files: ["./example.js"]});
       expect(d).to.equal(4);
       expect(e).to.equal(5);
       expect(global.a).to.equal(undefined);
     });
-
   });
 
   describe("topLevelVars option", function () {
@@ -44,6 +42,21 @@ describe("nri", function () {
   describe("noModuleExports option", function () {
     it("doesn't add module.exports properties", function () {
       nri({noModuleExports: true, files: ["./example.js"]});
+      expect(global.d).to.equal(undefined);
+      expect(global.e).to.equal(undefined);
+    });
+  });
+
+  describe("with a name option", function () {
+    it("adds the module.exports object under that name", function () {
+      nri({name: "stuff", files: ["./example.js"]});
+      expect(stuff).to.be.ok;
+      expect(stuff.d).to.equal(4);
+      expect(stuff.e).to.equal(5);
+    });
+
+    it("doesn't add module.exports properties", function () {
+      nri({name: "stuff", files: ["./example.js"]});
       expect(global.d).to.equal(undefined);
       expect(global.e).to.equal(undefined);
     });
