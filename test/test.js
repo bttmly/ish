@@ -17,8 +17,23 @@ describe("nri", function () {
     });
   });
 
-  describe("injecting .js scripts", function () {
+  describe("bad call", function () {
+    it("needs a settings object", function () {
+      expect(nri).to.throw(TypeError);
+    });
     
+    it("needs a settings object with a `files` property", function () {
+      expect(nri.bind(null, {})).to.throw(TypeError);
+    });
+
+    it("needs a settings object with a array at `files`", function () {
+      expect(nri.bind(null, {files: "asdf"})).to.throw(TypeError);
+      nri({files: []});
+    });
+  });
+
+  describe("injecting .js scripts", function () {
+  
     describe("defaults", function () {
       it("adds all properties of `module.exports` into the global scope", function () {
         nri({files: ["./example"]});
@@ -113,7 +128,7 @@ describe("nri", function () {
         expect(global.e).to.equal(undefined);
       });
     });
-    
+
   });
 
 });
