@@ -17,12 +17,13 @@ program
   .version("0.1.0")
   .option("-t, --topLevelVars", "Include top level variables.")
   .option("-m, --noModuleExports", "Exclude values in `module.exports`")
-  .option("-n, --name", "Name of module.exports in global")
+  .option("-n, --name <name>", "Name of module.exports in global")
   .parse(process.argv);
 
 var settings = {
   topLevelVars: program.topLevelVars,
   noModuleExports: program.noModuleExports,
+  name: program.name,
   files: program.args
 }
 
