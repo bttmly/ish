@@ -57,7 +57,7 @@ $ privateToModule // 'hello'
 Injecting just top level variables
 
 ```
-> nri stuff.js -m
+> nri stuff.js -mt
 
 // ... starts a Node REPL
 
@@ -65,4 +65,4 @@ $ typeof exportedA // 'undefined'
 $ privateToModule // 'hello'
 ```
 
-You can combine `-n` and `-m` to inject `module.exports` under a name and top level variables under their own identifiers.
+You can combine `-n` and `-m` to inject `module.exports` under a name and top level variables under their own identifiers. Checkout `bin/nri` for the command line arguments.
