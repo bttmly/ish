@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "callsite": "^1.0.0",
+    "coffee-script": "^1.9.1",
     "commander": "^2.6.0",
     "esprima": "^2.0.0",
     "make-module": "^3.0.0"
