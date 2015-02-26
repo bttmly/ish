@@ -3,6 +3,8 @@ _node repl injector_
 
 Choose some files, run them, and inject their `module.exports` properties into the global scope of a new REPL. Optionally, you can also (or instead) inject the module's top-level variables.
 
+There are probably some lingering edge cases around properly resolving file paths depending on whether the caller is `bin/nri` or another script.
+
 Given the following example file, here's what the various options will yield:
 
 ```js
