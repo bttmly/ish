@@ -1,7 +1,6 @@
 var a = require("./example2.js");
 
-var a = 1, b = 2;
-var c = 3;
+var b = 2, c = 3;
 
 (function () {
 
