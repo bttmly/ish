@@ -16,7 +16,8 @@ var replOpt = {
 program
   .version("0.1.0")
   .option("-t, --topLevelVars", "Include top level variables.")
-  .option("-n, --noModuleExports", "Exclude values in `module.exports`")
+  .option("-m, --noModuleExports", "Exclude values in `module.exports`")
+  .option("-n, --name", "Name of module.exports in global")
   .parse(process.argv);
 
 var settings = {
