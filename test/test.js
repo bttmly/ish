@@ -1,3 +1,5 @@
+var Module = require("module");
+
 var expect = require("chai").expect;
 
 var nri = require("../");
@@ -28,7 +30,7 @@ describe("nri", function () {
 
     it("needs a settings object with a array at `files`", function () {
       expect(nri.bind(null, {files: "asdf"})).to.throw(TypeError);
-      nri({files: []});
+      expect(nri({files: ["./example"]})[0]).to.be.instanceof(Module);
     });
   });
 
