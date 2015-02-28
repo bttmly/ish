@@ -23,111 +23,76 @@ describe("nri", function () {
     it("needs a settings object", function () {
       expect(nri).to.throw(TypeError);
     });
-    
+
     it("needs a settings object with a `files` property", function () {
       expect(nri.bind(null, {})).to.throw(TypeError);
     });
 
     it("needs a settings object with a array at `files`", function () {
       expect(nri.bind(null, {files: "asdf"})).to.throw(TypeError);
-      expect(nri({files: ["./example"]})[0]).to.be.instanceof(Module);
+      expect(nri( {files: [{path: "./example.js"}]} )[0]).to.be.instanceof(Module);
     });
   });
 
   describe("injecting .js scripts", function () {
-  
+
+    function settings () {
+      var obj = {files: [{path: "./example.js"}]};
+      [].slice.call(arguments).forEach(function (str) {
+        obj[str] = true;
+      });
+      return obj;
+    }
+
     describe("defaults", function () {
-      it("adds all properties of `module.exports` into the global scope", function () {
-        nri({files: ["./example"]});
-        expect(d).to.equal(4);
-        expect(e).to.equal(5);
-        expect(global.a).to.equal(undefined);
-      });
-    });
-
-    describe("topLevelVars option", function () {
-      it("adds all of the module's top level variables into the global scope", function () {
-        nri({topLevelVars: true, files: ["./example"]});
-        expect(a).to.equal(1);
-        expect(b).to.equal(2);
-        expect(c).to.equal(3);
-        expect(d).to.equal(4);
-        expect(e).to.equal(5);
-        expect(typeof g).to.equal("function");
-        expect(global.innerVar).to.equal(undefined);
-      });
-    });
-
-    describe("noModuleExports option", function () {
-      it("doesn't add module.exports properties", function () {
-        nri({noModuleExports: true, files: ["./example"]});
-        expect(global.d).to.equal(undefined);
-        expect(global.e).to.equal(undefined);
-      });
-    });
-
-    describe("with a name option", function () {
-      it("adds the module.exports object under that name", function () {
-        nri({name: "stuff", files: ["./example"]});
-        expect(stuff).to.be.ok;
-        expect(stuff.d).to.equal(4);
-        expect(stuff.e).to.equal(5);
+      it("injects `module.exports` into the global scope under its parsed name", function () {
+        nri(settings());
+        expect(example).to.be.ok;
+        expect(example.d).to.equal(4);
+        expect(example.e).to.equal(5);
       });
 
-      it("doesn't add module.exports properties", function () {
-        nri({name: "stuff", files: ["./example"]});
-        expect(global.d).to.equal(undefined);
-        expect(global.e).to.equal(undefined);
+      it("uses a passed in name if provided", function () {
+        var s = settings();
+        s.files.push({path: "./example3.js", name: "namedExample"});
+        nri(s);
+        expect(example).to.be.ok;
+        expect(example.d).to.equal(4);
+        expect(example.e).to.equal(5);
+        expect(namedExample).to.be.ok;
+        expect(namedExample.worked).to.equal(true);
       });
     });
 
   });
 
-
   describe("injecting .coffee scripts", function () {
 
+    function settings () {
+      var obj = {files: [{path: "./coffee-example.coffee"}]};
+      [].slice.call(arguments).forEach(function (str) {
+        obj[str] = true;
+      });
+      return obj;
+    }
+
     describe("defaults", function () {
-      it("adds all properties of `module.exports` into the global scope", function () {
-        nri({files: ["./coffee-example.coffee"]});
-        expect(d).to.equal(4);
-        expect(e).to.equal(5);
-        expect(global.a).to.equal(undefined);
-      });
-    });
-
-    describe("topLevelVars option", function () {
-      it("adds all of the module's top level variables into the global scope", function () {
-        nri({topLevelVars: true, files: ["./coffee-example.coffee"]});
-        expect(a).to.equal(1);
-        expect(b).to.equal(2);
-        expect(c).to.equal(3);
-        expect(d).to.equal(4);
-        expect(e).to.equal(5);
-        expect(typeof g).to.equal("function");
-        expect(global.innerVar).to.equal(undefined);
-      });
-    });
-
-    describe("noModuleExports option", function () {
-      it("doesn't add module.exports properties", function () {
-        nri({noModuleExports: true, files: ["./coffee-example.coffee"]});
-        expect(global.d).to.equal(undefined);
-        expect(global.e).to.equal(undefined);
-      });
-    });
-
-    describe("with a name option", function () {
-      it("adds the module.exports object under that name", function () {
-        nri({name: "stuff", files: ["./coffee-example.coffee"]});
-        expect(stuff).to.be.ok;
-        expect(stuff.d).to.equal(4);
-        expect(stuff.e).to.equal(5);
+      it("injects `module.exports` into the global scope under its parsed name", function () {
+        nri(settings());
+        expect(coffeeExample).to.be.ok;
+        expect(coffeeExample.d).to.equal(4);
+        expect(coffeeExample.e).to.equal(5);
       });
 
-      it("doesn't add module.exports properties", function () {
-        nri({name: "stuff", files: ["./coffee-example.coffee"]});
-        expect(global.d).to.equal(undefined);
-        expect(global.e).to.equal(undefined);
+      it("uses a passed in name if provided", function () {
+        var s = settings();
+        s.files.push({path: "./coffee-example3.coffee", name: "namedExample"});
+        nri(s);
+        expect(coffeeExample).to.be.ok;
+        expect(coffeeExample.d).to.equal(4);
+        expect(coffeeExample.e).to.equal(5);
+        expect(namedExample).to.be.ok;
+        expect(namedExample.worked).to.equal(true);
       });
     });
 

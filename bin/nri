@@ -6,6 +6,19 @@ var program = require('commander');
 
 var nri = require("../");
 
+function parseFiles (args) {
+  var result = [];
+  args.forEach(function (str) {
+    if (str.indexOf("=") === -1)
+      return result.push({path: str});
+    result.push({
+      path: str.split("=")[1],
+      name: str.split("=")[0]
+    });
+  });
+  return result;
+}
+
 var replOpt = {
   prompt: "$ ",
   input: process.stdin,
@@ -23,8 +36,7 @@ program
 var settings = {
   topLevelVars: program.topLevelVars,
   noModuleExports: program.noModuleExports,
-  name: program.name,
-  files: program.args
+  files: parseFiles(program.args)
 }
 
 nri(settings);
