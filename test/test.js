@@ -2,14 +2,14 @@ var Module = require("module");
 
 var expect = require("chai").expect;
 
-var nri = require("../");
+var ish = require("../");
 
 var originalGlobals = Object.keys(global).reduce(function (dict, key) {
   dict[key] = true;
   return dict;
 }, Object.create(null));
 
-describe("nri", function () {
+describe("ish", function () {
 
   // clean up global scope
   afterEach(function () {
@@ -21,16 +21,16 @@ describe("nri", function () {
 
   describe("bad call", function () {
     it("needs a settings object", function () {
-      expect(nri).to.throw(TypeError);
+      expect(ish).to.throw(TypeError);
     });
 
     it("needs a settings object with a `files` property", function () {
-      expect(nri.bind(null, {})).to.throw(TypeError);
+      expect(ish.bind(null, {})).to.throw(TypeError);
     });
 
     it("needs a settings object with a array at `files`", function () {
-      expect(nri.bind(null, {files: "asdf"})).to.throw(TypeError);
-      expect(nri( {files: [{path: "./example.js"}]} )[0]).to.be.instanceof(Module);
+      expect(ish.bind(null, {files: "asdf"})).to.throw(TypeError);
+      expect(ish( {files: [{path: "./example.js"}]} )[0]).to.be.instanceof(Module);
     });
   });
 
@@ -46,7 +46,7 @@ describe("nri", function () {
 
     describe("defaults", function () {
       it("injects `module.exports` into the global scope under its parsed name", function () {
-        nri(settings());
+        ish(settings());
         expect(example).to.be.ok;
         expect(example.d).to.equal(4);
         expect(example.e).to.equal(5);
@@ -55,7 +55,7 @@ describe("nri", function () {
       it("uses a passed in name if provided", function () {
         var s = settings();
         s.files.push({path: "./example3.js", name: "namedExample"});
-        nri(s);
+        ish(s);
         expect(example).to.be.ok;
         expect(example.d).to.equal(4);
         expect(example.e).to.equal(5);
@@ -78,7 +78,7 @@ describe("nri", function () {
 
     describe("defaults", function () {
       it("injects `module.exports` into the global scope under its parsed name", function () {
-        nri(settings());
+        ish(settings());
         expect(coffeeExample).to.be.ok;
         expect(coffeeExample.d).to.equal(4);
         expect(coffeeExample.e).to.equal(5);
@@ -87,7 +87,7 @@ describe("nri", function () {
       it("uses a passed in name if provided", function () {
         var s = settings();
         s.files.push({path: "./coffee-example3.coffee", name: "namedExample"});
-        nri(s);
+        ish(s);
         expect(coffeeExample).to.be.ok;
         expect(coffeeExample.d).to.equal(4);
         expect(coffeeExample.e).to.equal(5);
