@@ -1,4 +1,4 @@
-# ish
+# ish [![Build Status](https://travis-ci.org/nickb1080/ish.svg?branch=master)](https://travis-ci.org/nickb1080/ish)
 
 Choose some files, run them, and inject their `module.exports` properties into the global scope of a new REPL.
 
