@@ -4,7 +4,7 @@ var repl = require("repl");
 
 var program = require('commander');
 
-var nri = require("../");
+var ish = require("../");
 
 function parseFiles (args) {
   var result = [];
@@ -39,6 +39,6 @@ var settings = {
   files: parseFiles(program.args)
 }
 
-nri(settings);
+ish(settings);
 
 repl.start(replOpt);
