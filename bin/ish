@@ -31,6 +31,7 @@ program
   .option("-t, --topLevelVars", "Include top level variables.")
   .option("-m, --noModuleExports", "Exclude values in `module.exports`")
   .option("-n, --name <name>", "Name of module.exports in global")
+  .option("-b, --babel", "Apply the BabelJS transpiler to modules")
   .parse(process.argv);
 
 var settings = {
