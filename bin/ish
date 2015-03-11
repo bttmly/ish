@@ -2,7 +2,7 @@
 
 var repl = require("repl");
 
-var program = require('commander');
+var program = require("commander");
 
 var ish = require("../");
 
@@ -31,13 +31,14 @@ program
   .option("-t, --topLevelVars", "Include top level variables.")
   .option("-m, --noModuleExports", "Exclude values in `module.exports`")
   .option("-n, --name <name>", "Name of module.exports in global")
-  .option("-b, --babel", "Apply the BabelJS transpiler to modules")
+  .option("-b, --babel", "Process .js files with Babel (ES6 transpiler)")
   .parse(process.argv);
 
 var settings = {
   topLevelVars: program.topLevelVars,
   noModuleExports: program.noModuleExports,
-  files: parseFiles(program.args)
+  files: parseFiles(program.args),
+  babel: program.babel
 }
 
 ish(settings);
