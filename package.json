@@ -6,6 +6,9 @@
   "directories": {
     "test": "test"
   },
+  "bin": {
+    "ish": "./bin/ish"
+  },
   "dependencies": {
     "babel": "^4.7.16",
     "callsite": "^1.0.0",
