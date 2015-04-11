@@ -14,7 +14,7 @@ There are probably some lingering edge cases around properly resolving file path
 Given a file with CommonJS exports...
 ```
 // my-module.js
-var x = "some value";
+module.exports = "some value";
 ```
 
 Then, from the command line...
