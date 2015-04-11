@@ -24,3 +24,11 @@ Then, from the command line...
 $ console.log(myModule)
 "some value"
 ```
+
+It's basically the same as opening a Node REPL and requiring the module, except it can do a couple extra things:
+- Automatically compile CoffeeScript
+- Compile ES6 JavaScript with the `--babel` flag
+- Inject exported properties into scope under their property names
+- Access top level private variables of a module
+
+Docs on using these settings coming soon.
